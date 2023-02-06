@@ -90,19 +90,3 @@ func merge(left, right []int) []int {
 
 	return result
 }
-
-func DataStructures() {
-	//Стэк (LIFO):
-	var s []int = []int{1, 2, 3, 4, 5}
-	s, lifo := s[:len(s)-1], s[len(s)-1]
-	fmt.Println(s, lifo)
-}
-
-//разворот массива
-func reverseSlice(b []int) {
-	for i := 0; i < len(b)/2; i++ {
-		b[i] = b[len(b)-1-i] * b[i]
-		b[len(b)-1-i] = b[i] / b[len(b)-1-i]
-		b[i] = b[i] / b[len(b)-1-i]
-	}
-}
