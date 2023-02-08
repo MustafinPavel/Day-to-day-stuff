@@ -8,17 +8,17 @@ import (
 	"strings"
 )
 
+// Read one line and returns a string
+func ReadOrdinaryString(r *bufio.Reader) string {
+	line, _, _ := r.ReadLine()
+	return string(line)
+}
+
 // Read one int from line
 func ReadIntFromLine(r *bufio.Reader) int {
 	line, _, _ := r.ReadLine()
 	lineInt, _ := strconv.Atoi(string(line))
 	return lineInt
-}
-
-// Read one int from line
-func ReadIntFromLine2(r *bufio.Reader) (result int) {
-	fmt.Fscan(r, &result)
-	return
 }
 
 // Read int slice from line
@@ -86,6 +86,22 @@ func DataStructures() {
 	var s []int = []int{1, 2, 3, 4, 5}
 	s, lifo := s[:len(s)-1], s[len(s)-1]
 	fmt.Println(s, lifo)
+}
+
+type Stack struct {
+	stack []string
+}
+
+func (st *Stack) AddToStack(s string) {
+	st.stack = append(st.stack, s)
+}
+func (st *Stack) PopFromStack() string {
+	if len(st.stack) != 0 {
+		returningString := st.stack[len(st.stack)-1]
+		st.stack = st.stack[:len(st.stack)-1]
+		return returningString
+	}
+	panic("The stack is empty")
 }
 
 // Разворот массива

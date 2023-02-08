@@ -1,0 +1,9 @@
+Задача J:
+
+SELECT submissions.user_id, problems.id, problems.contest_id, problems.code
+FROM problems
+JOIN submissions ON problems.id = submissions.problem_id
+WHERE submissions.success = true
+GROUP BY submissions.user_id, problems.id, problems.contest_id, problems.code
+ORDER BY problems.id ASC
+
