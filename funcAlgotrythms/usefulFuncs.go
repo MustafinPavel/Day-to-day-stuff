@@ -65,11 +65,9 @@ Loop:
 		case ai == len(a):
 			result = append(result, b[bi])
 			bi++
-			continue
 		case bi == len(a):
 			result = append(result, a[ai])
 			ai++
-			continue
 		case a[ai] <= b[bi]:
 			result = append(result, a[ai])
 			ai++
@@ -112,3 +110,14 @@ func reverseSlice(b []int) {
 		b[i] = b[i] / b[len(b)-1-i]
 	}
 }
+
+// Проверка того, имплементировала ли структура ВСЕ методы интерфейса.
+// Если добавить метод в интерфейс, не даст скомпилироваться
+type SomeInterface interface {
+	Method()
+}
+type Implementation struct{}
+
+func (*Implementation) Method() { fmt.Println("Hello, World!") }
+
+var _ SomeInterface = (*Implementation)(nil) // ← вот эта строчка
