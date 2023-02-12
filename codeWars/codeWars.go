@@ -1,7 +1,11 @@
 package codeWars
 
-/*
-func HighestRank(nums []int) int {
+import (
+	"strconv"
+	"strings"
+)
+
+func highestRank(nums []int) int {
 	temp := make(map[int]int)
 	var temp2 []int
 	for _, v := range nums {
@@ -22,9 +26,9 @@ func HighestRank(nums []int) int {
 			temp2 = append(temp2, k)
 		}
 	}
-	return FindMax(temp2)
+	return findMax(temp2)
 }
-func FindMax(nums []int) int {
+func findMax(nums []int) int {
 	var max int
 	for i := 0; i < len(nums); i++ {
 		if nums[i] > max {
@@ -34,8 +38,7 @@ func FindMax(nums []int) int {
 	return max
 }
 
-import "strconv"
-func FakeBin(x string) string {
+func fakeBin(x string) string {
 	var result string
 	for _, v := range x {
 		n, _ := strconv.Atoi(string(v))
@@ -48,14 +51,12 @@ func FakeBin(x string) string {
 	return result
 }
 
-import "strings"
-func AbbrevName(name string) string {
+func abbrevName(name string) string {
 	sl := strings.Fields(name)
 	return strings.ToUpper(string(sl[0][0])) + "." + strings.ToUpper(string(sl[1][0]))
 }
 
-import "strconv"
-func DigitalRoot(n int) int {
+func digitalRoot(n int) int {
 AGAIN:
 	var allNumbers []int
 	strNum := strconv.Itoa(n)
@@ -73,7 +74,7 @@ AGAIN:
 	return n
 }
 
-func CountPositivesSumNegatives(numbers []int) []int {
+func countPositivesSumNegatives(numbers []int) []int {
 	var result []int = make([]int, 2, 4)
 	for _, v := range numbers {
 		switch {
@@ -89,8 +90,7 @@ func CountPositivesSumNegatives(numbers []int) []int {
 	return result
 }
 
-import "strings"
-func Accum(s string) string {
+func accum(s string) string {
 	var result string
 	for k, v := range s {
 		result += strings.ToUpper(string(v))
@@ -103,5 +103,3 @@ func Accum(s string) string {
 	}
 	return result
 }
-
-*/

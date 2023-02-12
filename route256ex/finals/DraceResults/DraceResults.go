@@ -28,10 +28,9 @@ func OrderSportsmenByPlaces() {
 
 func getPlaces(numOfSportsman int, sportsmanSlice []int) map[int]int {
 	resultsMap := make(map[int]int)
-	t := make([]int, len(sportsmanSlice))
-	copy(t, sportsmanSlice)
-	var temp sort.IntSlice = t
-	sort.Sort(temp)
+	temp := make([]int, len(sportsmanSlice))
+	copy(temp, sportsmanSlice)
+	sort.Sort(sort.IntSlice(temp))
 	for i := 0; i < len(temp); i++ {
 		if i == 0 {
 			resultsMap[temp[i]] = 1
