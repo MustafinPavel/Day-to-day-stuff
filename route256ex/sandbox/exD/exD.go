@@ -1,4 +1,4 @@
-package main
+package exD
 
 import (
 	"bufio"
@@ -9,30 +9,31 @@ import (
 	"strings"
 )
 
-func exD() {
+// Неплохая структура
+func Solution() {
 	// file1, _ := os.Open("testFileInput")
 	// r := bufio.NewReader(file1)
 	r := bufio.NewReader(os.Stdin)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
-	tablesAmount := ReadIntFromLine(r)
+	tablesAmount := readIntFromLine(r)
 	for i := 0; i < tablesAmount; i++ {
-		table := ReadTable(r)
-		clicks := ReadClicks(r)
+		table := readTable(r)
+		clicks := readClicks(r)
 		for _, v := range clicks[1] {
-			table = Sort(table, v-1)
+			table = mySort(table, v-1)
 		}
-		PrintFinalTable(table)
+		printFinalTable(table)
 		fmt.Println()
 	}
 }
-func Sort(table [][]int, clickOn int) [][]int {
+func mySort(table [][]int, clickOn int) [][]int {
 	sort.SliceStable(table, func(i, j int) bool {
 		return table[i][clickOn] < table[j][clickOn]
 	})
 	return table
 }
-func PrintFinalTable(table [][]int) {
+func printFinalTable(table [][]int) {
 	for i := 0; i < len(table); i++ {
 		for k, v := range table[i] {
 			if k == (len(table[i]) - 1) {
@@ -43,12 +44,12 @@ func PrintFinalTable(table [][]int) {
 		}
 	}
 }
-func ReadIntFromLine(r *bufio.Reader) int {
+func readIntFromLine(r *bufio.Reader) int {
 	line, _, _ := r.ReadLine()
 	lineInt, _ := strconv.Atoi(string(line))
 	return lineInt
 }
-func ReadSliceFromLine(r *bufio.Reader) (result []int) {
+func readSliceFromLine(r *bufio.Reader) (result []int) {
 	line, _, _ := r.ReadLine()
 	slice := strings.Fields(string(line))
 	for i := 0; i < len(slice); i++ {
@@ -57,18 +58,18 @@ func ReadSliceFromLine(r *bufio.Reader) (result []int) {
 	}
 	return
 }
-func ReadTable(r *bufio.Reader) (result [][]int) {
+func readTable(r *bufio.Reader) (result [][]int) {
 	r.ReadLine() //skip empty line
-	keyLine := ReadSliceFromLine(r)
+	keyLine := readSliceFromLine(r)
 	for i := 0; i < keyLine[0]; i++ {
-		tableLine := ReadSliceFromLine(r)
+		tableLine := readSliceFromLine(r)
 		result = append(result, tableLine)
 	}
 	return
 }
-func ReadClicks(r *bufio.Reader) (result [][]int) {
+func readClicks(r *bufio.Reader) (result [][]int) {
 	for i := 0; i < 2; i++ {
-		clicksLine := ReadSliceFromLine(r)
+		clicksLine := readSliceFromLine(r)
 		result = append(result, clicksLine)
 	}
 	return

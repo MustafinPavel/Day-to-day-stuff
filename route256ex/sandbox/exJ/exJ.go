@@ -1,4 +1,4 @@
-package main
+package exJ
 
 import (
 	"bufio"
@@ -8,7 +8,8 @@ import (
 	"sync"
 )
 
-func exJ() {
+// Ужасно структурированное и медленное решение "в лоб", но работает.
+func Solution() {
 	//sTimer := time.Now()
 	// file1, _ := os.Open("testFileInput")
 	// r := bufio.NewReader(file1)
@@ -16,8 +17,8 @@ func exJ() {
 	r := bufio.NewReader(os.Stdin)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
-	dictionary := ScanLine(r)
-	queries := ScanLine(r)
+	dictionary := scanLine(r)
+	queries := scanLine(r)
 	var results []string = make([]string, len(queries)/2, len(queries))
 	wg.Add(len(queries))
 	for i := 0; i < len(queries); i++ {
@@ -52,7 +53,7 @@ func exJ() {
 	//fmt.Printf("ExecTime: %v", time.Since(sTimer))
 }
 
-func ScanLine(r *bufio.Reader) []string {
+func scanLine(r *bufio.Reader) []string {
 	line, _, _ := r.ReadLine()
 	dvStr := line
 	dv, _ := strconv.Atoi(string(dvStr))

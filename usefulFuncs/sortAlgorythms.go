@@ -1,15 +1,8 @@
-package main
+package usefulFuncs
 
 import "fmt"
 
-func mainTest() {
-	array := []int{6, 10, 5, 8, 9, 8, 2, 3, 10, 7}
-	fmt.Println("Before: ", array)
-	a := mSort(array)
-	fmt.Println("After: ", a)
-}
-
-// Сортировка методом вставки
+// Сортировка методом вставки / Insertion sort
 func InsertionSort(array []int) {
 	for i := 0; i < len(array); i++ {
 		temp := array[i]
@@ -22,8 +15,8 @@ func InsertionSort(array []int) {
 	}
 }
 
-// Быстрая Сортировка
-func quickSortStart(arr []int) []int {
+// Быстрая Сортировка / Quicksort
+func QuickSortStart(arr []int) []int {
 	return quickSort(arr, 0, len(arr)-1)
 }
 func quickSort(arr []int, low, high int) []int {
@@ -48,8 +41,8 @@ func partition(arr []int, low, high int) ([]int, int) {
 	return arr, i
 }
 
-// Сортировка Слиянием:
-func mSort(m []int) []int {
+// Сортировка Слиянием / MergeSort
+func MergeSort(m []int) []int {
 	if len(m) <= 1 {
 		return m
 	}
@@ -58,8 +51,8 @@ func mSort(m []int) []int {
 	left := m[:mid]
 	right := m[mid:]
 
-	left = mSort(left)
-	right = mSort(right)
+	left = MergeSort(left)
+	right = MergeSort(right)
 
 	return merge(left, right)
 }
@@ -87,6 +80,5 @@ func merge(left, right []int) []int {
 			right = right[1:]
 		}
 	}
-
 	return result
 }

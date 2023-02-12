@@ -1,4 +1,4 @@
-package main
+package exC
 
 import (
 	"bufio"
@@ -9,7 +9,8 @@ import (
 	"strings"
 )
 
-func exC() {
+// ужасное решение
+func Solution() {
 	scanner := bufio.NewScanner(os.Stdin)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()

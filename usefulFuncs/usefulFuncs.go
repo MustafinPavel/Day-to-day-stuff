@@ -1,27 +1,28 @@
-package main
+package usefulFuncs
 
 import (
 	"bufio"
 	"fmt"
 	"math"
+	"os"
 	"strconv"
 	"strings"
 )
 
-// Read one line and returns a string
+// Считать одну строку
 func ReadOrdinaryString(r *bufio.Reader) string {
 	line, _, _ := r.ReadLine()
 	return string(line)
 }
 
-// Read one int from line
+// Считывает и парсит строку с одним int
 func ReadIntFromLine(r *bufio.Reader) int {
 	line, _, _ := r.ReadLine()
 	lineInt, _ := strconv.Atoi(string(line))
 	return lineInt
 }
 
-// Read int slice from line
+// Считывает строку с набором int и парсит в []int
 func ReadSliceFromLine(r *bufio.Reader) []int {
 	result := make([]int, 0, 100000)
 	line, _, _ := r.ReadLine()
@@ -33,7 +34,7 @@ func ReadSliceFromLine(r *bufio.Reader) []int {
 	return result
 }
 
-// Binary Search start function
+// Алгоритм бинарного поиска
 func StartSearch(tar int, s []int) int {
 	return binarySearch(tar, 0, len(s)-1, s)
 }
@@ -79,13 +80,14 @@ Loop:
 	return result
 }
 
-// Стэк (LIFO):
+// Stack data structure (LIFO) - Lazy one:
 func DataStructures() {
 	var s []int = []int{1, 2, 3, 4, 5}
 	s, lifo := s[:len(s)-1], s[len(s)-1]
 	fmt.Println(s, lifo)
 }
 
+// Stack data structure (LIFO):
 type Stack struct {
 	stack []string
 }
@@ -102,7 +104,7 @@ func (st *Stack) PopFromStack() string {
 	panic("The stack is empty")
 }
 
-// Разворот массива
+// Reversing a slice with O(1) memory:
 func reverseSlice(b []int) {
 	for i := 0; i < len(b)/2; i++ {
 		b[i] = b[len(b)-1-i] * b[i]
@@ -121,3 +123,35 @@ type Implementation struct{}
 func (*Implementation) Method() { fmt.Println("Hello, World!") }
 
 var _ SomeInterface = (*Implementation)(nil) // ← вот эта строчка
+
+// Генерация строки с i целыми числами и запись её в output.txt
+// для больших тестов решений задач
+func RandNumSliceGen() {
+	file1, _ := os.Create("output.txt")
+	in := bufio.NewReader(file1)
+	out := bufio.NewWriter(file1)
+	for i := 0; i < 10000; i++ {
+		out.WriteString(strconv.Itoa(88) + " ")
+	}
+	out.Flush()
+	isNotEnded := true
+	parts := 0
+	numSlice := make([]int, 0, 10000)
+	for isNotEnded {
+		parts++
+		cds, end := readIntSlice(in)
+		isNotEnded = end
+		numSlice = append(numSlice, cds...)
+	}
+	fmt.Printf("num slice len:\t%v\nparts:\t%v\n", len(numSlice), parts)
+}
+func readIntSlice(in *bufio.Reader) ([]int, bool) {
+	temp, isNotEnded, _ := in.ReadLine()
+	tempSl := strings.Split(string(temp), " ")
+	var result []int = make([]int, 0, len(tempSl)*2)
+	for _, v := range tempSl {
+		num, _ := strconv.Atoi(v)
+		result = append(result, num)
+	}
+	return result, isNotEnded
+}

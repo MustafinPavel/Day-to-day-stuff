@@ -1,4 +1,4 @@
-package main
+package exB
 
 import (
 	"bufio"
@@ -8,7 +8,8 @@ import (
 	"strings"
 )
 
-func exB() {
+// Ужасное решение
+func Solution() {
 	// file1, _ := os.Open("testFileInput")
 	// r := bufio.NewReader(file1)
 	r := bufio.NewReader(os.Stdin)

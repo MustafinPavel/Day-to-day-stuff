@@ -1,4 +1,4 @@
-package main
+package exE
 
 import (
 	"bufio"
@@ -8,27 +8,28 @@ import (
 	"strings"
 )
 
-func exE() {
+// Неплохая структура
+func Solution() {
 	// file1, _ := os.Open("testFileInput")
 	// r := bufio.NewReader(file1)
 	r := bufio.NewReader(os.Stdin)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
-	employeesAmount := ReadIntFromLine(r)
+	employeesAmount := readIntFromLine(r)
 	for i := 0; i < employeesAmount; i++ {
-		daysAmount := ReadIntFromLine(r)
-		reports := ReadSliceFromLine(r)
-		fmt.Println(CheckEmployee(daysAmount, reports))
+		daysAmount := readIntFromLine(r)
+		reports := readSliceFromLine(r)
+		fmt.Println(checkEmployee(daysAmount, reports))
 	}
 }
 
-func ReadIntFromLine(r *bufio.Reader) int {
+func readIntFromLine(r *bufio.Reader) int {
 	line, _, _ := r.ReadLine()
 	lineInt, _ := strconv.Atoi(string(line))
 	return lineInt
 }
 
-func ReadSliceFromLine(r *bufio.Reader) []int {
+func readSliceFromLine(r *bufio.Reader) []int {
 	result := make([]int, 0, 100000)
 	line, _, _ := r.ReadLine()
 	slice := strings.Fields(string(line))
@@ -39,7 +40,7 @@ func ReadSliceFromLine(r *bufio.Reader) []int {
 	return result
 }
 
-func CheckEmployee(daysAmount int, reports []int) (testResult string) {
+func checkEmployee(daysAmount int, reports []int) (testResult string) {
 	sliceToCompare := make([]int, 0, cap(reports))
 	var result bool = true
 	for k, v := range reports {

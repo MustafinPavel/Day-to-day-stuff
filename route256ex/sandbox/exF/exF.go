@@ -1,4 +1,4 @@
-package main
+package exF
 
 import (
 	"bufio"
@@ -8,23 +8,24 @@ import (
 	"strings"
 )
 
-func exF() {
+// Не очень изящное, но неплохо структурированное решение
+func Solution() {
 	// file1, _ := os.Open("testFileInput")
 	// r := bufio.NewReader(file1)
 	r := bufio.NewReader(os.Stdin)
-	testsAmount := ReadIntFromLine(r)
+	testsAmount := readIntFromLine(r)
 	for i := 0; i < testsAmount; i++ {
-		localInputsAmount := ReadIntFromLine(r)
-		fmt.Println(ScanAndCount(localInputsAmount, r))
+		localInputsAmount := readIntFromLine(r)
+		fmt.Println(scanAndCount(localInputsAmount, r))
 	}
 }
 
-func ScanAndCount(linesAmount int, r *bufio.Reader) string {
+func scanAndCount(linesAmount int, r *bufio.Reader) string {
 	var pairs [][]int = make([][]int, 0, 10000)
 	for i := 0; i < linesAmount; i++ {
 		line, _, _ := r.ReadLine()
 		timePair := strings.Split(string(line), "-")
-		timePairInt, ok := TurnTimeIntoIntAndCheck(timePair)
+		timePairInt, ok := turnTimeIntoIntAndCheck(timePair)
 		if !ok {
 			for j := i + 1; j < linesAmount; j++ {
 				r.ReadLine()
@@ -33,14 +34,14 @@ func ScanAndCount(linesAmount int, r *bufio.Reader) string {
 		}
 		pairs = append(pairs, timePairInt)
 	}
-	ok := CheckForIntersections(pairs)
+	ok := checkForIntersections(pairs)
 	if !ok {
 		return "NO"
 	}
 	return "YES"
 }
 
-func TurnTimeIntoIntAndCheck(pair []string) ([]int, bool) {
+func turnTimeIntoIntAndCheck(pair []string) ([]int, bool) {
 	var res []int = make([]int, 0, 1000)
 	for _, v := range pair {
 		ts := strings.Split(v, ":")
@@ -60,7 +61,7 @@ func TurnTimeIntoIntAndCheck(pair []string) ([]int, bool) {
 	return res, true
 }
 
-func CheckForIntersections(pairs [][]int) bool {
+func checkForIntersections(pairs [][]int) bool {
 	for k, v := range pairs {
 		for i := 0; i < len(pairs); i++ {
 			switch {
@@ -76,7 +77,7 @@ func CheckForIntersections(pairs [][]int) bool {
 	return true
 }
 
-func ReadIntFromLine(r *bufio.Reader) int {
+func readIntFromLine(r *bufio.Reader) int {
 	line, _, _ := r.ReadLine()
 	lineInt, _ := strconv.Atoi(string(line))
 	return lineInt

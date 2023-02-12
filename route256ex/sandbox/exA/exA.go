@@ -1,4 +1,4 @@
-package main
+package exA
 
 import (
 	"bufio"
@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func main() {
+func Solution() {
 	// //построчный input
 	// file1, _ := os.Open("input.txt")
 	// in := bufio.NewScanner(file1)
@@ -23,20 +23,20 @@ func main() {
 	r := bufio.NewReader(os.Stdin)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
-	linesAmount := ReadIntFromLine(r)
+	linesAmount := readIntFromLine(r)
 	for i := 0; i < linesAmount; i++ {
-		t := ReadSliceFromLine(r)
+		t := readSliceFromLine(r)
 		fmt.Println(t[0] + t[1])
 	}
 }
 
-func ReadIntFromLine(r *bufio.Reader) int {
+func readIntFromLine(r *bufio.Reader) int {
 	line, _, _ := r.ReadLine()
 	lineInt, _ := strconv.Atoi(string(line))
 	return lineInt
 }
 
-func ReadSliceFromLine(r *bufio.Reader) []int {
+func readSliceFromLine(r *bufio.Reader) []int {
 	result := make([]int, 0, 100000)
 	line, _, _ := r.ReadLine()
 	slice := strings.Fields(string(line))
