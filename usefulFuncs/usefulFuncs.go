@@ -9,21 +9,33 @@ import (
 	"strings"
 )
 
-// Считать одну строку
-func ReadOrdinaryString(r *bufio.Reader) string {
+// Считать короткую строку
+func readShortLine(r *bufio.Reader) string {
 	line, _, _ := r.ReadLine()
 	return string(line)
 }
 
+// Считать длинную строку
+func readLongLine(in *bufio.Reader) string {
+	isNotEnded := true
+	tmpByteSlice := make([]byte, 0, 100000)
+	for isNotEnded {
+		tmp, end, _ := in.ReadLine()
+		isNotEnded = end
+		tmpByteSlice = append(tmpByteSlice, tmp...)
+	}
+	return string(tmpByteSlice)
+}
+
 // Считывает и парсит строку с одним int
-func ReadIntFromLine(r *bufio.Reader) int {
+func readLineWithOneInt(r *bufio.Reader) int {
 	line, _, _ := r.ReadLine()
 	lineInt, _ := strconv.Atoi(string(line))
 	return lineInt
 }
 
-// Считывает строку с набором int и парсит в []int
-func ReadSliceFromLine(r *bufio.Reader) []int {
+// Считывает короткую строку с набором int и парсит в []int
+func sliceFromShortLine(r *bufio.Reader) []int {
 	result := make([]int, 0, 100000)
 	line, _, _ := r.ReadLine()
 	slice := strings.Fields(string(line))
@@ -38,7 +50,6 @@ func ReadSliceFromLine(r *bufio.Reader) []int {
 func StartSearch(tar int, s []int) int {
 	return binarySearch(tar, 0, len(s)-1, s)
 }
-
 func binarySearch(target int, first int, last int, s []int) int {
 	m := math.Round(float64(first + (last-first)/2))
 	middle := int(m)

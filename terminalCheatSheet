@@ -1,3 +1,13 @@
+alt+up/down         обмен строк местами
+alt+shift+up/down   копировние строки
+alt+F12             перейти к объявлению переменной
+alt+shift+F         отформатировать документ
+cmd+F2              переименовать переменную
+alt+Z               вкл/выкл перенос длинных строк
+cmd+K, Z            Дзен-режим
+cmd+K, cmd+T        Темы
+
+
 # Terminal Cheat Sheet
 pwd         # print working directory
 ls          # list files in directory
