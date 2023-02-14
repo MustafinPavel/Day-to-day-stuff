@@ -8,7 +8,7 @@ import (
 )
 
 // Choose optimal pull set from the row of cards, pulling one card from one of the sides at a time
-func pull() {
+func main() {
 	file1, _ := os.Open("input.txt")
 	in := bufio.NewReader(file1)
 	out := bufio.NewWriter(os.Stdout)
