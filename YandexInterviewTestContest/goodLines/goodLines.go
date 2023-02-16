@@ -1,4 +1,4 @@
-package main
+package goodLines
 
 import (
 	"bufio"
@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+// Удаление из строки всех комбинаций вида xX и Xx с последующим схлопыванием и удалением вновь образовавшихся
+// подобных комбинаций. Решение третье, самое быстрое.
 func main() {
 	file1, _ := os.Open("input.txt")
 	in := bufio.NewReader(file1)

@@ -10,6 +10,7 @@ import (
 	"strings"
 )
 
+// Поиск самого длинного растущего пути по заданной матрице.
 func main() {
 	//input
 	file1, _ := os.Open("input.txt")
