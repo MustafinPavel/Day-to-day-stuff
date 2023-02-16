@@ -1,13 +1,8 @@
-push 3
-push 14
-size
-clear
-push 1
-back
+pop
+pop
 push 2
-back
+push 3
+clear
 pop
-size
+push 2
 pop
-size
-exit
