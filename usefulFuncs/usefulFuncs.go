@@ -118,9 +118,7 @@ func (st *Stack) PopFromStack() string {
 // Reversing a slice with O(1) memory:
 func reverseSlice(b []int) {
 	for i := 0; i < len(b)/2; i++ {
-		b[i] = b[len(b)-1-i] * b[i]
-		b[len(b)-1-i] = b[i] / b[len(b)-1-i]
-		b[i] = b[i] / b[len(b)-1-i]
+		b[i], b[len(b)-1-i] = b[len(b)-1-i], b[i]
 	}
 }
 

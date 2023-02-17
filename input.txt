@@ -1,8 +1,0 @@
-pop
-pop
-push 2
-push 3
-clear
-pop
-push 2
-pop

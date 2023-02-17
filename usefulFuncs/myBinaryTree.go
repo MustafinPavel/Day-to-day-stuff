@@ -77,7 +77,6 @@ func (t *TreeNode) PrintInorder() {
 	if t == nil {
 		return
 	}
-
 	t.left.PrintInorder()
 	fmt.Print(t.val)
 	t.right.PrintInorder()
