@@ -18,7 +18,7 @@ func main() {
 	numOfDays := readLineWithOneInt(in)
 	allData := readIntSlice(in)
 	//logic
-	fmt.Println(numOfDays, allData) //plug
+	fmt.Println(numOfDays, allData) //plug (DELETE)
 
 }
 
