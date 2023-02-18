@@ -164,3 +164,22 @@ func readIntSlice(in *bufio.Reader) ([]int, bool) {
 	}
 	return result, isNotEnded
 }
+
+// Поиск NOD (Наименьший общий делитель)
+// и NOK (Наименьшее общее кратное)
+func findNOD(a, b int) int {
+	for {
+		max := int(math.Max(float64(a), float64(b)))
+		min := int(math.Min(float64(a), float64(b)))
+		if max%min == 0 {
+			return min
+		} else {
+			result := findNOD(min, max%min)
+			return result
+		}
+	}
+}
+func findNOK(a, b int) int {
+	nod := findNOD(a, b)
+	return a * b / nod
+}
