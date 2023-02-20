@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// Дек (double ended queue), реализованный через кольцевой буфер
 func main() {
 	file1, _ := os.Open("input.txt")
 	in := bufio.NewReader(file1)
@@ -57,7 +58,6 @@ func (q *DEQueue) push_back(n int) {
 	fmt.Println("ok")
 }
 
-// Допилить:
 func (q *DEQueue) push_front(n int) {
 	if q.len != 0 {
 		q.head--
