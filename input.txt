@@ -1,8 +1,29 @@
-10
-1 2 3 2 1 4 2 5 3 1
-
--1 4 3 4 -1 6 9 8 9 -1
-
-
-1  2 3 4 5 6 4 2 1 
--1 8 7 7 6 6 7 8 -1
+push_front 10
+push_front 20
+push_front 30
+push_front 40
+pop_back
+pop_back
+pop_back
+pop_back
+push_front 50
+push_front 60
+push_front 70
+pop_back
+pop_back
+pop_back
+push_front 80
+push_front 90
+push_front 100
+push_front 110
+push_front 120
+push_front 130
+pop_back
+pop_back
+pop_back
+pop_back
+pop_back
+pop_back
+pop_back
+pop_back
+pop_back
