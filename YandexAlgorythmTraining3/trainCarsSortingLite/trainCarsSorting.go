@@ -1,8 +1,7 @@
-package main
+package trainCarsSorting
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -14,10 +13,39 @@ func main() {
 	in := bufio.NewReader(file1)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
-	countriesAmount := readSingleInt(in)
-	countries := readLongIntSlice(in)
-	fmt.Println(countries, countriesAmount) //plug
-
+	carsAmount := readSingleInt(in)
+	wayOne := readLongIntSlice(in)
+	wayTwo := make([]int, 0, len(wayOne))
+	//logic
+	var st Stack
+	for i := 0; i < carsAmount; i++ {
+		next := wayOne[i]
+		for st.len > 0 {
+			prev := st.ShowLast()
+			if prev < next {
+				wayTwo = append(wayTwo, st.Pop())
+			} else {
+				st.Push(next)
+				break
+			}
+		}
+		if st.len == 0 {
+			st.Push(next)
+		}
+	}
+	for st.len > 0 {
+		wayTwo = append(wayTwo, st.Pop())
+	}
+	//output
+	for i := 0; i < len(wayTwo); i++ {
+		if i > 0 && wayTwo[i-1] > wayTwo[i] {
+			out.WriteString("NO")
+			break
+		}
+		if len(wayTwo) == 1 || (i == len(wayTwo)-1 && wayTwo[i-1] < wayTwo[i]) {
+			out.WriteString("YES")
+		}
+	}
 }
 
 type Stack struct {

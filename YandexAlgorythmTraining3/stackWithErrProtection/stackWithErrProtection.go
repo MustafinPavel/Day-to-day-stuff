@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// Stack implementation
 func main() {
 	file1, _ := os.Open("input.txt")
 	in := bufio.NewReader(file1)

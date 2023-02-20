@@ -28,7 +28,7 @@ func readLongLine(in *bufio.Reader) string {
 }
 
 // Считывает и парсит строку с одним int
-func readLineWithOneInt(r *bufio.Reader) int {
+func readSingleInt(r *bufio.Reader) int {
 	line, _, _ := r.ReadLine()
 	lineInt, _ := strconv.Atoi(string(line))
 	return lineInt
@@ -44,6 +44,19 @@ func sliceFromShortLine(r *bufio.Reader) []int {
 		result = append(result, t)
 	}
 	return result
+}
+
+// Считывает длинную строку и делает []string
+func readLongSlice(in *bufio.Reader) []string {
+	isNotEnded := true
+	tmpByteSlice := make([]byte, 0, 100000)
+	for isNotEnded {
+		tmp, end, _ := in.ReadLine()
+		isNotEnded = end
+		tmpByteSlice = append(tmpByteSlice, tmp...)
+	}
+	slice := strings.Fields(string(tmpByteSlice))
+	return slice
 }
 
 // Алгоритм бинарного поиска

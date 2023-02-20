@@ -27,7 +27,6 @@ func main() {
 		letters[string(r)] = i
 		letters2[i] = string(r)
 	}
-	fmt.Println(symbolsInLine, maxSpellLen, symbols, nextSymbPointers, shiftsLine) //DELETE
 	//logic
 	UltimatePower := 0
 	for i := 0; i < symbolsInLine; i++ {
