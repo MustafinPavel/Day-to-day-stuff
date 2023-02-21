@@ -7,9 +7,11 @@ type Heap struct {
 func (h *Heap) Heapify() {
 	for i := len(h.heap) / 2; i >= 0; i-- {
 		pos := i
-		for pos*2+2 < len(h.heap) {
+		for pos*2+1 < len(h.heap) {
 			maxSonIdx := pos*2 + 1
-			if h.heap[pos*2+2] > h.heap[pos*2+1] {
+			if len(h.heap) == pos*2+2 {
+				maxSonIdx = pos*2 + 1
+			} else if h.heap[pos*2+2] > h.heap[pos*2+1] {
 				maxSonIdx = pos*2 + 2
 			}
 			if h.heap[pos] < h.heap[maxSonIdx] {

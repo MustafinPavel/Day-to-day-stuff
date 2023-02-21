@@ -82,3 +82,56 @@ func merge(left, right []int) []int {
 	}
 	return result
 }
+
+// Пирамидальная сортировка (HeapSort)
+type Heap struct {
+	heap []int
+}
+
+func (h *Heap) HeapSort() {
+	l := len(h.heap)
+	for i := 0; i < len(h.heap)-2; i++ {
+		swap(0, l-1, h.heap)
+		pos := 0
+		for pos*2+2 < l-1 {
+			maxSonIdx := pos*2 + 1
+			if h.heap[pos*2+2] > h.heap[pos*2+1] {
+				maxSonIdx = pos*2 + 2
+			}
+			if h.heap[pos] < h.heap[maxSonIdx] {
+				swap(pos, maxSonIdx, h.heap)
+				pos = maxSonIdx
+			} else {
+				break
+			}
+		}
+		l -= 1
+	}
+	if l == 2 && h.heap[0] > h.heap[1] {
+		swap(0, 1, h.heap)
+	}
+}
+
+func (h *Heap) Heapify() {
+	for i := len(h.heap) / 2; i >= 0; i-- {
+		pos := i
+		for pos*2+1 < len(h.heap) {
+			maxSonIdx := pos*2 + 1
+			if len(h.heap) == pos*2+2 {
+				maxSonIdx = pos*2 + 1
+			} else if h.heap[pos*2+2] > h.heap[pos*2+1] {
+				maxSonIdx = pos*2 + 2
+			}
+			if h.heap[pos] < h.heap[maxSonIdx] {
+				swap(pos, maxSonIdx, h.heap)
+				pos = maxSonIdx
+			} else {
+				break
+			}
+		}
+	}
+}
+
+func swap(a, b int, h []int) {
+	h[a], h[b] = h[b], h[a]
+}
