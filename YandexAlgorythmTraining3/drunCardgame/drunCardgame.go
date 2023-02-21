@@ -1,4 +1,4 @@
-package main
+package drunCardgame
 
 import (
 	"bufio"
@@ -15,6 +15,41 @@ func main() {
 	defer out.Flush()
 	line1 := readSliceFromShortLine(in)
 	line2 := readSliceFromShortLine(in)
+	//logic
+	player1 := Queue{queue: line1, head: 0, len: len(line1)}
+	player2 := Queue{queue: line2, head: 0, len: len(line2)}
+	round, roundLimit := 0, 1000000
+	for player1.len > 0 && player2.len > 0 {
+		p1card, p2card := player1.pop(), player2.pop()
+		winner := chooseWinner(p1card, p2card, &player1, &player2)
+		winner.push(p1card)
+		winner.push(p2card)
+		round++
+		if round >= roundLimit {
+			out.WriteString("botva")
+			break
+		}
+		if player1.len == 0 {
+			out.WriteString("second " + strconv.Itoa(round))
+		}
+		if player2.len == 0 {
+			out.WriteString("first " + strconv.Itoa(round))
+		}
+	}
+}
+
+func chooseWinner(p1card, p2card int, p1, p2 *Queue) *Queue {
+	switch {
+	case p1card == 0 && p2card == 9:
+		return p1
+	case p2card == 0 && p1card == 9:
+		return p2
+	case p1card > p2card:
+		return p1
+	case p2card > p1card:
+		return p2
+	}
+	panic("someone is cheating")
 }
 
 type Queue struct {

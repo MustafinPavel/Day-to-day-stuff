@@ -1,11 +1,8 @@
 package usefulFuncs
 
 import (
-	"bufio"
 	"fmt"
 	"os"
-	"strconv"
-	"strings"
 )
 
 type DEQueue struct {
@@ -126,41 +123,4 @@ func (q *DEQueue) clear() {
 func (q *DEQueue) exit() {
 	fmt.Println("bye")
 	os.Exit(0)
-}
-
-func handleQuery(query string, q *DEQueue) {
-	switch {
-	case strings.HasPrefix(query, "push_back"):
-		query = strings.TrimPrefix(query, "push_back ")
-		n, _ := strconv.Atoi(query)
-		q.push_back(n)
-	case strings.HasPrefix(query, "push_front"):
-		query = strings.TrimPrefix(query, "push_front ")
-		n, _ := strconv.Atoi(query)
-		q.push_front(n)
-	case strings.HasPrefix(query, "pop_back"):
-		q.pop_back()
-	case strings.HasPrefix(query, "pop_front"):
-		q.pop_front()
-	case strings.HasPrefix(query, "front"):
-		q.front()
-	case strings.HasPrefix(query, "back"):
-		q.back()
-	case strings.HasPrefix(query, "size"):
-		q.size()
-	case strings.HasPrefix(query, "clear"):
-		q.clear()
-	case strings.HasPrefix(query, "exit"):
-		q.exit()
-	case strings.HasPrefix(query, "EOF"):
-		os.Exit(1)
-	}
-}
-
-func readShortLine(r *bufio.Reader) string {
-	line, _, err := r.ReadLine()
-	if err != nil {
-		return "EOF"
-	}
-	return string(line)
 }

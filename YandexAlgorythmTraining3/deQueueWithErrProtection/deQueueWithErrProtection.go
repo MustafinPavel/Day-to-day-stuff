@@ -9,6 +9,7 @@ import (
 )
 
 // Дек (double ended queue), реализованный через кольцевой буфер
+// Надо будет допилить автоматическое сужение при существенном падении числа элементов.
 func main() {
 	file1, _ := os.Open("input.txt")
 	in := bufio.NewReader(file1)
