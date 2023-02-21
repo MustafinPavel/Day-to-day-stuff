@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"math"
-	"os"
 	"strconv"
 	"strings"
 )
@@ -57,6 +56,24 @@ func readLongSlice(in *bufio.Reader) []string {
 	}
 	slice := strings.Fields(string(tmpByteSlice))
 	return slice
+}
+
+// Считывает длинную строку из чисел и делает []int
+func readLongIntSlice(in *bufio.Reader) []int {
+	isNotEnded := true
+	tmpByteSlice := make([]byte, 0, 100000)
+	result := make([]int, 0, 100000)
+	for isNotEnded {
+		tmp, end, _ := in.ReadLine()
+		isNotEnded = end
+		tmpByteSlice = append(tmpByteSlice, tmp...)
+	}
+	slice := strings.Fields(string(tmpByteSlice))
+	for i := 0; i < len(slice); i++ {
+		t, _ := strconv.Atoi(slice[i])
+		result = append(result, t)
+	}
+	return result
 }
 
 // Алгоритм бинарного поиска
@@ -121,38 +138,6 @@ type Implementation struct{}
 func (*Implementation) Method() { fmt.Println("Hello, World!") }
 
 var _ SomeInterface = (*Implementation)(nil) // ← вот эта строчка
-
-// Генерация строки с i целыми числами и запись её в output.txt
-// для больших тестов решений задач
-func RandNumSliceGen() {
-	file1, _ := os.Create("output.txt")
-	in := bufio.NewReader(file1)
-	out := bufio.NewWriter(file1)
-	for i := 0; i < 10000; i++ {
-		out.WriteString(strconv.Itoa(88) + " ")
-	}
-	out.Flush()
-	isNotEnded := true
-	parts := 0
-	numSlice := make([]int, 0, 10000)
-	for isNotEnded {
-		parts++
-		cds, end := readIntSlice(in)
-		isNotEnded = end
-		numSlice = append(numSlice, cds...)
-	}
-	fmt.Printf("num slice len:\t%v\nparts:\t%v\n", len(numSlice), parts)
-}
-func readIntSlice(in *bufio.Reader) ([]int, bool) {
-	temp, isNotEnded, _ := in.ReadLine()
-	tempSl := strings.Split(string(temp), " ")
-	var result []int = make([]int, 0, len(tempSl)*2)
-	for _, v := range tempSl {
-		num, _ := strconv.Atoi(v)
-		result = append(result, num)
-	}
-	return result, isNotEnded
-}
 
 // Поиск NOD (Наименьший общий делитель)
 // и NOK (Наименьшее общее кратное)
