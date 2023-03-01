@@ -18,7 +18,7 @@ func readShortLine(r *bufio.Reader) string {
 // Считать длинную строку
 func readLongLine(in *bufio.Reader) string {
 	isNotEnded := true
-	tmpByteSlice := make([]byte, 0, 100000)
+	tmpByteSlice := make([]byte, 0, 10000)
 	for isNotEnded {
 		tmp, end, _ := in.ReadLine()
 		isNotEnded = end
@@ -35,8 +35,8 @@ func readSingleInt(r *bufio.Reader) int {
 }
 
 // Считывает короткую строку с набором int и парсит в []int
-func sliceFromShortLine(r *bufio.Reader) []int {
-	result := make([]int, 0, 100000)
+func readShortIntSlice(r *bufio.Reader) []int {
+	result := make([]int, 0, 0)
 	line, _, _ := r.ReadLine()
 	slice := strings.Fields(string(line))
 	for i := 0; i < len(slice); i++ {
@@ -49,7 +49,7 @@ func sliceFromShortLine(r *bufio.Reader) []int {
 // Считывает длинную строку и делает []string
 func readLongSlice(in *bufio.Reader) []string {
 	isNotEnded := true
-	tmpByteSlice := make([]byte, 0, 100000)
+	tmpByteSlice := make([]byte, 0, 10000)
 	for isNotEnded {
 		tmp, end, _ := in.ReadLine()
 		isNotEnded = end
@@ -62,8 +62,8 @@ func readLongSlice(in *bufio.Reader) []string {
 // Считывает длинную строку из чисел и делает []int
 func readLongIntSlice(in *bufio.Reader) []int {
 	isNotEnded := true
-	tmpByteSlice := make([]byte, 0, 100000)
-	result := make([]int, 0, 100000)
+	tmpByteSlice := make([]byte, 0, 10000)
+	result := make([]int, 0, 10000)
 	for isNotEnded {
 		tmp, end, _ := in.ReadLine()
 		isNotEnded = end
