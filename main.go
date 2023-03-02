@@ -14,8 +14,8 @@ func main() {
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
 	info := readShortIntSlice(in)
-	V := info[0] //100000
-	E := info[1] //100000
+	V := info[0] //100
+	E := info[1] //4450
 	//логика
 	graph := make([][]int, V+1, V+1)
 	visited := make([]int, V+1, V+1)
@@ -27,39 +27,32 @@ func main() {
 		graph[tmp[0]] = append(graph[tmp[0]], tmp[1])
 		graph[tmp[1]] = append(graph[tmp[1]], tmp[0])
 	}
-	var tally int
-	for i := 1; i < len(visited); i++ {
+
+	isDividable := true
+	for i := 1; i < len(visited) && isDividable; i++ {
 		if visited[i] == 0 {
-			tally++
-			dfs(graph, visited, i, tally)
+			isDividable = dfs(graph, visited, i, 1, isDividable)
 		}
 	}
 	//вывод
-	out.WriteString(strconv.Itoa(tally) + "\n")
-	var resSlice [][]int = make([][]int, tally+1, tally+1)
-	for i := 1; i < len(visited); i++ {
-		resSlice[visited[i]] = append(resSlice[visited[i]], i)
-	}
-	for k, v := range resSlice {
-		if k > 0 {
-			var result string
-			out.WriteString(strconv.Itoa(len(v)) + "\n")
-			for _, v2 := range v {
-				result += strconv.Itoa(v2) + " "
-			}
-			result = strings.TrimSpace(result)
-			out.WriteString(result + "\n")
-		}
+	if isDividable {
+		out.WriteString("YES")
+	} else {
+		out.WriteString("NO")
 	}
 }
 
-func dfs(graph [][]int, visited []int, now int, tally int) {
-	visited[now] = tally
+func dfs(graph [][]int, visited []int, now int, color int, dividable bool) bool {
+	visited[now] = color
 	for _, neigh := range graph[now] {
+		if visited[neigh] == color {
+			dividable = false
+		}
 		if visited[neigh] == 0 {
-			dfs(graph, visited, neigh, tally)
+			dividable = dfs(graph, visited, neigh, 3-color, dividable)
 		}
 	}
+	return dividable
 }
 
 func readShortIntSlice(r *bufio.Reader) []int {
