@@ -1,4 +1,4 @@
-package depthFirstSearch
+package dfs
 
 import (
 	"bufio"
@@ -43,14 +43,13 @@ func main() {
 
 }
 
-func dfs(graph [][]int, visited []bool, now int) int {
+func dfs(graph [][]int, visited []bool, now int) {
 	visited[now] = true
 	for _, neigh := range graph[now] {
 		if !visited[neigh] {
 			dfs(graph, visited, neigh)
 		}
 	}
-	return 0
 }
 
 func readShortIntSlice(r *bufio.Reader) []int {

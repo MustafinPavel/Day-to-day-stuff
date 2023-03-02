@@ -1,4 +1,4 @@
-package main
+package dfsComponents
 
 import (
 	"bufio"
