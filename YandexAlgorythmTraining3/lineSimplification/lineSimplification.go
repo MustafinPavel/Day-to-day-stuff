@@ -30,9 +30,9 @@ func main() {
 		}
 	}
 }
-func addToResult(a string, i int, out *bufio.Writer) {
-	if i > 1 {
-		out.WriteString(a + strconv.Itoa(i))
+func addToResult(a string, counter int, out *bufio.Writer) {
+	if counter > 1 {
+		out.WriteString(a + strconv.Itoa(counter))
 	} else {
 		out.WriteString(a)
 	}

@@ -6,7 +6,6 @@ import (
 	"math"
 	"strconv"
 	"strings"
-	"runtime"
 )
 
 // Считать короткую строку
@@ -160,6 +159,6 @@ func findNOK(a, b int) int {
 }
 
 //Проверка выделенной памяти
-var m runtime.MemStats
-runtime.ReadMemStats(&m)
-fmt.Println(m.TotalAlloc/1024/1024, " Mb")
+// var m runtime.MemStats
+// runtime.ReadMemStats(&m)
+// fmt.Println(m.TotalAlloc/1024/1024, " Mb")
