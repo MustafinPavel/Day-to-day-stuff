@@ -1,4 +1,4 @@
-package main
+package sumInRectangle
 
 import (
 	"bufio"
@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Решение с полной мемоизацией всех значений сумм прямоугольников
 func main() {
 	//ввод
 	file1, _ := os.Open("input.txt")
