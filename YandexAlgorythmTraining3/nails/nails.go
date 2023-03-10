@@ -2,14 +2,12 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"sort"
 	"strconv"
 	"strings"
 )
 
-// Не завершена. Решение неверное - подумать над dp.
 func main() {
 	//ввод
 	file1, _ := os.Open("input.txt")
@@ -19,53 +17,30 @@ func main() {
 	nailsAmount := readSingleInt(in)
 	nails := readShortIntSlice(in)
 	sort.Sort(sort.IntSlice(nails))
-	distances := make([]int, 0, len(nails))
-	for i := 1; i < nailsAmount; i++ {
-		distances = append(distances, nails[i]-nails[i-1])
-	}
 	//логика
-	answer := count(0, distances)
-	fmt.Println(distances)
+	memo := make([]int, nailsAmount)
+	for i := 0; i < nailsAmount; i++ {
+		memo[i] = -1
+	}
+	answer := dp(nails, memo, nailsAmount-1)
 	//вывод
 	out.WriteString(strconv.Itoa(answer))
 }
-
-func count(n int, dist []int) int {
-	mem := make([]int, len(dist))
-	var res int
-	if n == 0 {
-		mem[n] = 1
-		n++
+func dp(nails, memo []int, i int) int {
+	if i == 0 || i == 1 {
+		return nails[1] - nails[0]
 	}
-	for ; n < len(dist); n++ {
-		if n == len(dist)-1 || n == len(dist)-2 {
-			mem[len(dist)-1] = 1
-			break
-		}
-		cur := dist[n]
-		next := dist[n+1]
-		if cur < next {
-			mem[n] = 1
-		} else {
-			mem[n+1] = 1
-			n++
-		}
+	if memo[i] != -1 {
+		return memo[i]
 	}
-	for i, tmp := 0, 0; i < len(mem); i++ {
-		if mem[i] == 1 {
-			tmp++
-		}
-		if tmp == 3 {
-			tmp = 0
-			mem[i-1] = 0
-		}
+	option1 := dp(nails, memo, i-2) + nails[i] - nails[i-1]
+	option2 := dp(nails, memo, i-1) + nails[i] - nails[i-1]
+	if option1 <= option2 {
+		memo[i] = option1
+		return option1
 	}
-	for i := 0; i < len(mem); i++ {
-		if mem[i] == 1 {
-			res += dist[i]
-		}
-	}
-	return res
+	memo[i] = option2
+	return option2
 }
 
 func readSingleInt(r *bufio.Reader) int {

@@ -1,8 +1,7 @@
-package dfsCycleSearch
+package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -30,39 +29,52 @@ func main() {
 			}
 		}
 	}
-	fmt.Println(graph)
 
 	var st Stack
 	var r int
 	for i := 1; i < len(visited); i++ {
 		if visited[i] == 0 {
-			st, r = dfs(graph, visited, i, 0, false, &st)
+			st, r, _ = dfs(graph, visited, i, 0, false, &st)
 		}
 	}
-	fmt.Printf("r: %v, st: %v", r, st)
 	//вывод
+	if r == 0 {
+		out.WriteString("NO")
+	} else {
+		out.WriteString("YES\n" + strconv.Itoa(len(st.stack)) + "\n")
+		itr := len(st.stack)
+		for i := 0; i < itr; i++ {
+			out.WriteString(strconv.Itoa(st.Pop()))
+			if i != itr-1 {
+				out.WriteString(" ")
+			}
+		}
+		//
+	}
 }
 
-func dfs(graph [][]int, visited []int, now int, prev int, cycleFound bool, st *Stack) (result Stack, r int) {
+// Квинтэссенция говногода
+func dfs(graph [][]int, visited []int, now int, prev int, cycleFound bool, st *Stack) (result Stack, r int, cf bool) {
 	visited[now] = 1
 	st.Push(now)
-	fmt.Println(st)
 	for _, neigh := range graph[now] {
 		if cycleFound {
-			return
+			return *st, r, cycleFound
 		}
 		if visited[neigh] == 1 && neigh != prev {
 			cycleFound = true
 			r = neigh
-			return
+			return *st, r, cycleFound
 		}
 		if visited[neigh] == 0 {
 			prev = now
-			result, r = dfs(graph, visited, neigh, prev, cycleFound, st)
+			result, r, cycleFound = dfs(graph, visited, neigh, prev, cycleFound, st)
 		}
 	}
-	visited[now] = 2
-	st.Pop()
+	if !cycleFound {
+		visited[now] = 2
+		st.Pop()
+	}
 	return
 }
 
