@@ -17,7 +17,7 @@ func readShortLine(r *bufio.Reader) string {
 // Считать длинную строку
 func readLongLine(in *bufio.Reader) string {
 	isNotEnded := true
-	tmpByteSlice := make([]byte, 0, 10000)
+	tmpByteSlice := make([]byte, 0, 1000)
 	for isNotEnded {
 		tmp, end, _ := in.ReadLine()
 		isNotEnded = end

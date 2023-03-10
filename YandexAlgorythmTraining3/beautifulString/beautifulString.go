@@ -8,7 +8,7 @@ import (
 
 func main() {
 	//ввод
-	file1, _ := os.Open("input.txt")
+	file1, _ := os.Open("input2.txt")
 	in := bufio.NewReader(file1)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
