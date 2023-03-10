@@ -1,4 +1,4 @@
-package main
+package goodString
 
 import (
 	"bufio"
