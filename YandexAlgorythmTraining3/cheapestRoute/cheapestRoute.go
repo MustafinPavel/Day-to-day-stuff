@@ -13,7 +13,7 @@ func main() {
 	in := bufio.NewReader(file1)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
-	fieldSize := readShortIntSlice(in) //[0] строк на [1] колонок
+	fieldSize := readShortIntSlice(in)
 	rows, columns := fieldSize[0]+1, fieldSize[1]+1
 	field := make([][]int, rows+1)
 	emptyLine := make([]int, columns)
@@ -33,6 +33,7 @@ func main() {
 	//вывод
 	out.WriteString(strconv.Itoa(answer))
 }
+
 func dp(field [][]int, posX, posY int) int {
 	switch {
 	case posX == 1 && posY == 1:
