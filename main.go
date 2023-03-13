@@ -13,43 +13,42 @@ func main() {
 	in := bufio.NewReader(file1)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
-	fieldSize := readShortIntSlice(in) //[0] строк на [1] колонок
-	rows, columns := fieldSize[0]+1, fieldSize[1]+1
-	field := make([][]int, rows+1)
-	emptyLine := make([]int, columns)
-	for i := 0; i < len(emptyLine); i++ {
-		emptyLine[i] = 999
-	}
-	field[0] = emptyLine
-	for i := 1; i <= rows; i++ {
+	graphSize := readSingleInt(in)
+	graph := make([][]int, graphSize+1, graphSize+1)
+	for i := 0; i < graphSize; i++ {
 		line := readShortIntSlice(in)
-		field[i] = append(field[i], 999)
 		for j := 0; j < len(line); j++ {
-			field[i] = append(field[i], line[j])
+			if line[j] == 1 {
+				graph[i+1] = append(graph[i+1], j+1)
+			}
 		}
 	}
+	tmp := readShortIntSlice(in)
+	start := tmp[0]
+	end := tmp[1]
 	//логика
-	answer := dp(field, columns-1, rows-1)
-	//вывод
-	out.WriteString(strconv.Itoa(answer))
-}
-func dp(field [][]int, posX, posY int) int {
-	switch {
-	case posX == 1 && posY == 1:
-		return field[posY][posX]
-	case posX == 1:
-		option := dp(field, posX, posY-1) + field[posY][posX]
-		return option
-	case posY == 1:
-		option := dp(field, posX-1, posY) + field[posY][posX]
-		return option
-	default:
-		option2 := dp(field, posX, posY-1) + field[posY][posX]
-		option1 := dp(field, posX-1, posY) + field[posY][posX]
-		if option1 < option2 {
-			return option1
+	var queue Queue
+	results := make([]int, graphSize+1, graphSize+1)
+	queue.push(start)
+BFS:
+	for queue.len > 0 {
+		now := queue.pop()
+		for i := 0; i < len(graph[now]); i++ {
+			neigh := graph[now][i]
+			if results[neigh] == 0 && neigh != start {
+				queue.push(neigh)
+				results[neigh] = results[now] + 1
+			}
+			if neigh == end {
+				break BFS
+			}
 		}
-		return option2
+	}
+	//вывод
+	if results[end] == 0 && start != end {
+		out.WriteString("-1")
+	} else {
+		out.WriteString(strconv.Itoa(results[end]))
 	}
 }
 
@@ -60,6 +59,41 @@ func readShortIntSlice(r *bufio.Reader) []int {
 	for i := 0; i < len(slice); i++ {
 		t, _ := strconv.Atoi(slice[i])
 		result = append(result, t)
+	}
+	return result
+}
+func readSingleInt(r *bufio.Reader) int {
+	line, _, _ := r.ReadLine()
+	lineInt, _ := strconv.Atoi(string(line))
+	return lineInt
+}
+
+type Queue struct {
+	queue []int
+	head  int
+	len   int
+}
+
+func (q *Queue) push(n int) {
+	q.queue = append(q.queue, n)
+	q.len++
+}
+func (q *Queue) pop() int {
+	var result int
+	if q.len != 0 {
+		q.len--
+		result = q.queue[q.head]
+		q.head++
+	} else {
+		panic("empty queue")
+	}
+	if q.head > 1000 {
+		tmp := make([]int, 0, q.len)
+		for i := 0; i < q.len; i++ {
+			tmp = append(tmp, q.queue[q.head+i])
+		}
+		q.queue = tmp
+		q.head = 0
 	}
 	return result
 }
