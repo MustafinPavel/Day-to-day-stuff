@@ -1,10 +1,5 @@
 package usefulFuncs
 
-import (
-	"fmt"
-	"os"
-)
-
 type Queue struct {
 	queue []int
 	head  int
@@ -14,15 +9,15 @@ type Queue struct {
 func (q *Queue) push(n int) {
 	q.queue = append(q.queue, n)
 	q.len++
-	fmt.Println("ok")
 }
-func (q *Queue) pop() {
+func (q *Queue) pop() int {
+	var result int
 	if q.len != 0 {
-		fmt.Printf("%v\n", q.queue[q.head])
 		q.len--
+		result = q.queue[q.head]
 		q.head++
 	} else {
-		fmt.Println("error")
+		panic("empty queue")
 	}
 	if q.head > 1000 {
 		tmp := make([]int, 0, q.len)
@@ -32,24 +27,20 @@ func (q *Queue) pop() {
 		q.queue = tmp
 		q.head = 0
 	}
+	return result
 }
-func (q *Queue) front() {
+func (q *Queue) front() int {
 	if q.len != 0 {
-		fmt.Printf("%v\n", q.queue[q.head])
+		return q.queue[q.head]
 	} else {
-		fmt.Println("error")
+		panic("empty queue")
 	}
 }
-func (q *Queue) size() {
-	fmt.Printf("%v\n", q.len)
+func (q *Queue) size() int {
+	return q.len
 }
 func (q *Queue) clear() {
 	q.queue = make([]int, 0, 1000)
 	q.len = 0
 	q.head = 0
-	fmt.Println("ok")
-}
-func (q *Queue) exit() {
-	fmt.Println("bye")
-	os.Exit(0)
 }
