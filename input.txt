@@ -1,0 +1,20 @@
+19
+add 1 one
+add 1 two
+add 1 three
+add 1 four
+add 1 five
+add 1 six
+get one
+get two
+get three
+get four
+get five
+get six
+delete 3
+get one
+get two
+get three
+get four
+get five
+get six
