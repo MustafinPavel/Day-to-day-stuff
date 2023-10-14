@@ -1,24 +1,24 @@
 package main
 
-import (
-	"bufio"
-	"os"
-	"strconv"
-)
+import "fmt"
 
 func main() {
-	file1, _ := os.Open("input.txt")
-	in := bufio.NewReader(file1)
-	out := bufio.NewWriter(os.Stdout)
-	defer out.Flush()
+	manOne := People{
+		name:    "Michael",
+		age:     23,
+		country: "RF",
+	}
+	fmt.Println(manOne)
+	manOne.register()
+}
 
+type People struct {
+	name    string
+	age     int
+	country string
 }
-func readSingleInt(r *bufio.Reader) int {
-	line, _, _ := r.ReadLine()
-	lineInt, _ := strconv.Atoi(string(line))
-	return lineInt
-}
-func readShortLine(r *bufio.Reader) string {
-	line, _, _ := r.ReadLine()
-	return string(line)
+
+func (p People) register()int {
+	fmt.Printf("%v was registered\n", p.name)
+	return 0
 }
